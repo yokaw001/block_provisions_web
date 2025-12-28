@@ -1,8 +1,10 @@
-"use client"
+"use client";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,10 +14,28 @@ export function Header() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToSection = (
+    e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    e.stopPropagation(); // ← Prevents event bubbling issues on mobile
+
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      const headerOffset = 100; // adjust this value if content is hidden under header
+      const y = element.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+
+    setIsOpen(false);
+  };
 
   const navItems = [
     { name: "Solutions", href: "#solutions" },
@@ -31,7 +51,7 @@ export function Header() {
       transition={{ duration: 0.6 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg shadow-black/5"
+          ? "bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-lg shadow-black/5"
           : "bg-white/80 backdrop-blur-md"
       }`}
     >
@@ -40,15 +60,15 @@ export function Header() {
           {/* Logo */}
           <motion.a
             href="/"
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-1 group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-              <Zap className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+              <Image src="/b.png" height={20} width={50} alt="logo" />
             </div>
-            <span className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-              VendAI
+            <span className="text-xl font-bold text-slate-600 group-hover:text-slate-800 transition-colors">
+              Block Provisions
             </span>
           </motion.a>
 
@@ -58,20 +78,24 @@ export function Header() {
               <motion.a
                 key={item.name}
                 href={item.href}
+                onClick={(e) => scrollToSection(e, item.href)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium relative group"
+                className="text-slate-600 hover:text-slate-900 transition-colors text-sm font-medium relative group cursor-pointer"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-slate-800 group-hover:w-full transition-all duration-300" />
               </motion.a>
             ))}
           </div>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/30">
+            <Button
+              onClick={(e) => scrollToSection(e, "#contact")}
+              className="bg-slate-700 hover:bg-slate-900 text-white shadow-lg transition-all"
+            >
               Contact Us
             </Button>
           </div>
@@ -79,17 +103,14 @@ export function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-900 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="md:hidden text-slate-900 p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            aria-label="Toggle menu"
           >
-            {isOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Keeping your original style */}
         <motion.div
           initial={false}
           animate={{
@@ -97,23 +118,28 @@ export function Header() {
             opacity: isOpen ? 1 : 0,
           }}
           transition={{ duration: 0.3 }}
-          className="md:hidden overflow-hidden"
+          className="md:hidden overflow-hidden border-t border-slate-200 bg-white" // added subtle border for better look
         >
-          <div className="py-4 space-y-4">
+          <div className="py-5 px-4 space-y-3">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-lg transition-colors"
+                onClick={(e) => scrollToSection(e, item.href)}
+                className="block px-4 py-3 text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer"
               >
                 {item.name}
               </a>
             ))}
-            <div className="pt-4 space-y-2">
-              <Button className="w-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/30">
+
+            <div className="pt-4 px-4">
+              <Link href="#contact">
+              <Button
+                onClick={(e) => scrollToSection(e, "#contact")}
+                className="w-full bg-slate-700 hover:bg-slate-900 text-white shadow-md transition-all py-6 text-base"
+              >
                 Contact Us
-              </Button>
+              </Button></Link>
             </div>
           </div>
         </motion.div>

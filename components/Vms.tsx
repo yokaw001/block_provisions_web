@@ -20,67 +20,23 @@ export function VMSAnalytics() {
   const [activeTab, setActiveTab] = useState(0);
 
   const features = [
-    {
-      icon: Monitor,
-      title: "Monitor Status",
-      description: "Track machine uptime in real-time",
-    },
-    {
-      icon: TrendingUp,
-      title: "Track Sales",
-      description: "View revenue and performance metrics",
-    },
-    {
-      icon: Package,
-      title: "Manage Inventory",
-      description: "Product-level stock tracking",
-    },
-    {
-      icon: DollarSign,
-      title: "Adjust Pricing",
-      description: "Update prices remotely",
-    },
-    {
-      icon: Bell,
-      title: "Get Alerts",
-      description: "Restock and maintenance notifications",
-    },
+    { icon: Monitor, title: "Monitor Status", description: "Track machine uptime in real-time" },
+    { icon: TrendingUp, title: "Track Sales", description: "View revenue and performance metrics" },
+    { icon: Package, title: "Manage Inventory", description: "Product-level stock tracking" },
+    { icon: DollarSign, title: "Adjust Pricing", description: "Update prices remotely" },
+    { icon: Bell, title: "Get Alerts", description: "Restock and maintenance notifications" },
   ];
 
   const analytics = [
-    {
-      icon: BarChart3,
-      title: "Product Performance",
-      description: "Identify top sellers and underperformers",
-    },
-    {
-      icon: MapPin,
-      title: "Location Insights",
-      description: "Sell-through rates by placement",
-    },
-    {
-      icon: Clock,
-      title: "Time Patterns",
-      description: "Peak demand hours and trends",
-    },
+    { icon: BarChart3, title: "Product Performance", description: "Identify top sellers and underperformers" },
+    { icon: MapPin, title: "Location Insights", description: "Sell-through rates by placement" },
+    { icon: Clock, title: "Time Patterns", description: "Peak demand hours and trends" },
   ];
 
   const security = [
-    {
-      icon: Shield,
-      title: "Transaction Trails",
-      description: "Complete audit history",
-    },
-    {
-      icon: Video,
-      title: "Security Footage",
-      description: "Optional per-purchase recording",
-    },
-    {
-      icon: AlertTriangle,
-      title: "Loss Detection",
-      description: "Anomaly monitoring and alerts",
-    },
+    { icon: Shield, title: "Transaction Trails", description: "Complete audit history" },
+    { icon: Video, title: "Security Footage", description: "Optional per-purchase recording" },
+    { icon: AlertTriangle, title: "Loss Detection", description: "Anomaly monitoring and alerts" },
   ];
 
   const tabs = [
@@ -90,11 +46,11 @@ export function VMSAnalytics() {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section id="software" className="py-24 bg-white relative overflow-hidden">
       {/* Gradient background */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-100/50 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-slate-100/50 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-slate-200/50 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,23 +62,23 @@ export function VMSAnalytics() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 border border-blue-200 mb-6">
-            <Monitor className="w-4 h-4 text-blue-600" />
-            <span className="text-sm text-blue-700 font-medium">Full Control</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-6">
+            <Monitor className="w-4 h-4 text-slate-600" />
+            <span className="text-sm text-slate-700 font-medium">Full Control</span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-6">
             Vending Management{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-slate-600">
               Software
             </span>
           </h2>
 
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-4">
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-4">
             Control your operation from anywhere.
           </p>
 
-          <p className="text-gray-500 max-w-2xl mx-auto">
+          <p className="text-slate-500 max-w-2xl mx-auto">
             Our software platform connects every machine into a single
             operational view—whether you run one unit or an entire fleet.
           </p>
@@ -142,8 +98,8 @@ export function VMSAnalytics() {
               onClick={() => setActiveTab(index)}
               className={`px-6 py-3 rounded-xl font-medium transition-all ${
                 activeTab === index
-                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-                  : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  ? "bg-slate-700 hover:bg-slate-900 text-white shadow-lg"
+                  : "bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
               }`}
             >
               {tab.name}
@@ -166,20 +122,20 @@ export function VMSAnalytics() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:border-gray-300 hover:shadow-lg transition-all group"
+              className="bg-white border border-slate-200 rounded-xl p-6 hover:border-slate-300 hover:shadow-lg transition-all group"
             >
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <item.icon className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <item.icon className="w-6 h-6 text-slate-600" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
+              <h3 className="text-lg font-bold text-slate-800 mb-2">
                 {item.title}
               </h3>
-              <p className="text-gray-600 text-sm">{item.description}</p>
+              <p className="text-slate-600 text-sm">{item.description}</p>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Clean image - no background, no shadow, no rounded corners */}
+        {/* Dashboard Image */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -198,7 +154,7 @@ export function VMSAnalytics() {
             />
           </div>
           
-          <p className="text-center text-gray-500 mt-6 text-sm">
+          <p className="text-center text-slate-500 mt-6 text-sm">
             Modern dashboard — real-time insights at your fingertips
           </p>
         </motion.div>
@@ -211,14 +167,14 @@ export function VMSAnalytics() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-center"
         >
-          <div className="inline-block bg-gradient-to-br from-blue-50 to-purple-50 border border-gray-200 rounded-2xl p-8 shadow-lg">
-            <p className="text-lg text-gray-700 mb-2">
-              <span className="font-semibold text-gray-900">
+          <div className="inline-block bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-2xl p-8 shadow-lg">
+            <p className="text-lg text-slate-700 mb-2">
+              <span className="font-semibold text-slate-800">
                 Make decisions based on data,
               </span>{" "}
               not guesswork.
             </p>
-            <p className="text-gray-600">
+            <p className="text-slate-600">
               Use real data to reduce waste, improve margins, and scale
               efficiently.
             </p>

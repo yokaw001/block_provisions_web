@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,6 +8,7 @@ import {
   Users,
   CheckCircle2,
 } from "lucide-react";
+import Link from "next/link";
 
 export function CTAPricing() {
   const pricingFactors = [
@@ -29,7 +30,7 @@ export function CTAPricing() {
         "Timeline",
       ],
       buttonText: "Get Quote",
-      gradient: "from-blue-500 to-cyan-500",
+      gradient: "from-slate-600 to-slate-800",
     },
     {
       icon: Building,
@@ -42,7 +43,7 @@ export function CTAPricing() {
         "Maintenance",
       ],
       buttonText: "Request Placement",
-      gradient: "from-purple-500 to-pink-500",
+      gradient: "from-slate-600 to-slate-800",
     },
     {
       icon: Users,
@@ -55,12 +56,15 @@ export function CTAPricing() {
         "No commitments",
       ],
       buttonText: "Book a Demo",
-      gradient: "from-green-500 to-emerald-500",
+      gradient: "from-slate-600 to-slate-800",
     },
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <section
+      id="pricing"
+      className="py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden"
+    >
       {/* Animated orbs */}
       <motion.div
         animate={{
@@ -72,7 +76,7 @@ export function CTAPricing() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-1/4 left-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"
+        className="absolute top-1/4 left-0 w-96 h-96 bg-slate-200/30 rounded-full blur-3xl"
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,14 +88,14 @@ export function CTAPricing() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-6">
             Better vending at{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent">
               better costs.
             </span>
           </h2>
 
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-8">
             Pricing varies based on your specific needs:
           </p>
 
@@ -103,15 +107,15 @@ export function CTAPricing() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-4 text-left hover:border-gray-300 hover:shadow-md transition-all"
+                className="flex items-start gap-3 bg-white border border-slate-200 rounded-xl p-4 text-left hover:border-slate-300 hover:shadow-md transition-all"
               >
-                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-700 text-sm">{factor}</span>
+                <CheckCircle2 className="w-5 h-5 text-slate-600 flex-shrink-0 mt-0.5" />
+                <span className="text-slate-700 text-sm">{factor}</span>
               </motion.div>
             ))}
           </div>
 
-          <p className="text-gray-500">
+          <p className="text-slate-500">
             We keep pricing straightforward and aligned with long-term operator
             success.
           </p>
@@ -130,9 +134,9 @@ export function CTAPricing() {
               className="group relative"
             >
               {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-xl from-blue-200/50 to-purple-200/50" />
+              <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-xl from-slate-200/50 to-slate-300/50" />
 
-              <div className="relative bg-white border border-gray-200 rounded-2xl p-8 h-full hover:border-gray-300 hover:shadow-2xl transition-all">
+              <div className="relative bg-white border border-slate-200 rounded-2xl p-8 h-full hover:border-slate-300 hover:shadow-2xl transition-all">
                 {/* Icon */}
                 <div
                   className={`w-16 h-16 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-6 shadow-lg`}
@@ -141,28 +145,30 @@ export function CTAPricing() {
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="text-2xl font-bold text-slate-800 mb-2">
                   {card.title}
                 </h3>
-                <p className="text-gray-600 mb-6">{card.description}</p>
+                <p className="text-slate-600 mb-6">{card.description}</p>
 
                 {/* Details */}
                 <ul className="space-y-2 mb-8">
                   {card.details.map((detail, idx) => (
                     <li key={idx} className="flex items-center gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600" />
-                      <span className="text-gray-700 text-sm">{detail}</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-slate-600 to-slate-800" />
+                      <span className="text-slate-700 text-sm">{detail}</span>
                     </li>
                   ))}
                 </ul>
 
                 {/* Button */}
-                <Button
-                  className={`w-full bg-gradient-to-r ${card.gradient} hover:opacity-90 text-white shadow-lg group/btn`}
-                >
-                  {card.buttonText}
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
+                <Link href="#contact">
+                  <Button
+                    className={`w-full bg-gradient-to-r ${card.gradient} hover:opacity-90 text-white shadow-lg group/btn`}
+                  >
+                    {card.buttonText}
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           ))}

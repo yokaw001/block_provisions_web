@@ -10,21 +10,13 @@ export function FrictionlessExperience() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-        }
+        if (entry.isIntersecting) setIsInView(true);
       },
       { threshold: 0.1 }
     );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
+    if (ref.current) observer.observe(ref.current);
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+      if (ref.current) observer.unobserve(ref.current);
     };
   }, []);
 
@@ -51,19 +43,19 @@ export function FrictionlessExperience() {
       number: "01",
       title: "Tap",
       description: "Customer taps their card or phone",
-      color: "from-blue-500 to-cyan-500",
+      color: "from-slate-600 to-slate-800",
     },
     {
       number: "02",
       title: "Grab",
       description: "AI detects products automatically",
-      color: "from-purple-500 to-pink-500",
+      color: "from-slate-600 to-slate-800",
     },
     {
       number: "03",
       title: "Go",
       description: "Payment processed, inventory logged",
-      color: "from-green-500 to-emerald-500",
+      color: "from-slate-600 to-slate-800",
     },
   ];
 
@@ -82,21 +74,21 @@ export function FrictionlessExperience() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 border border-green-200 mb-6">
-              <Zap className="w-4 h-4 text-green-600" />
-              <span className="text-sm text-green-700 font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-6">
+              <Zap className="w-4 h-4 text-slate-600" />
+              <span className="text-sm text-slate-700 font-medium">
                 Zero Friction Checkout
               </span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-6">
               Simple for customers.{" "}
-              <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="text-slate-600">
                 Profitable for operators.
               </span>
             </h2>
 
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-slate-600 mb-8 leading-relaxed">
               No apps. No scanning. No friction. Customers tap, grab, and go.
               The system automatically detects products, processes payment, and
               logs inventory in real time.
@@ -110,18 +102,16 @@ export function FrictionlessExperience() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="flex items-start gap-4 bg-white rounded-xl p-4 border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all"
+                  className="flex items-start gap-4 bg-white rounded-xl p-4 border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center flex-shrink-0">
-                    <benefit.icon className="w-5 h-5 text-green-600" />
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center flex-shrink-0">
+                    <benefit.icon className="w-5 h-5 text-slate-600" />
                   </div>
                   <div>
-                    <h3 className="text-gray-900 font-semibold mb-1">
+                    <h3 className="text-slate-800 font-semibold mb-1">
                       {benefit.title}
                     </h3>
-                    <p className="text-gray-600 text-sm">
-                      {benefit.description}
-                    </p>
+                    <p className="text-slate-700 text-sm">{benefit.description}</p>
                   </div>
                 </motion.div>
               ))}
@@ -147,10 +137,10 @@ export function FrictionlessExperience() {
                 >
                   {/* Connection line */}
                   {index < steps.length - 1 && (
-                    <div className="absolute left-8 top-20 w-0.5 h-6 bg-gradient-to-b from-gray-300 to-transparent" />
+                    <div className="absolute left-8 top-20 w-0.5 h-6 bg-gradient-to-b from-slate-300 to-transparent" />
                   )}
 
-                  <div className="relative bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 hover:shadow-lg transition-all">
+                  <div className="relative bg-white border border-slate-200 rounded-2xl p-6 hover:border-slate-300 hover:shadow-lg transition-all">
                     <div className="flex items-center gap-4">
                       {/* Number */}
                       <div
@@ -163,10 +153,10 @@ export function FrictionlessExperience() {
 
                       {/* Content */}
                       <div className="flex-1">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-1">
+                        <h3 className="text-2xl font-bold text-slate-800 mb-1">
                           {step.title}
                         </h3>
-                        <p className="text-gray-600">{step.description}</p>
+                        <p className="text-slate-600">{step.description}</p>
                       </div>
                     </div>
 
@@ -190,7 +180,7 @@ export function FrictionlessExperience() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-blue-200/50 to-purple-200/50 rounded-full blur-2xl"
+              className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-slate-200/50 to-slate-300/50 rounded-full blur-2xl"
             />
           </motion.div>
         </div>

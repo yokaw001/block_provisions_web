@@ -1,15 +1,16 @@
-"use client"
+"use client";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-slate-50 to-gray-100">
       {/* Animated background grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] bg-[size:64px_64px]" />
-      
+
       {/* Animated gradient orbs */}
       <motion.div
         className="absolute top-1/4 -left-48 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"
@@ -32,43 +33,45 @@ export function Hero() {
             className="flex-1 text-center lg:text-left max-w-3xl lg:max-w-none"
           >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 border border-blue-200 mb-6 mx-auto lg:mx-0">
-              <Zap className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-medium text-blue-700">AI-Powered Retail</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-6 mx-auto lg:mx-0">
+              <Zap className="w-4 h-4 text-slate-600" />
+              <span className="text-sm font-medium text-slate-700">
+                AI-Powered Retail
+              </span>
             </div>
 
             {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-800 mb-6 leading-tight">
               Next-Gen Unattended Retail.
               <br className="hidden sm:block" />
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Powered by AI.
-              </span>
+              <span className="text-slate-600">Powered by AI.</span>
             </h1>
 
             {/* Subheading */}
             <p className="text-lg sm:text-xl text-slate-700 mb-10 max-w-2xl mx-auto lg:mx-0">
-              We build and operate intelligent vending systems that combine modern
-              hardware, AI-driven analytics, and frictionless checkout. Deploy
-              smarter retail with confidence.
+              We build and operate intelligent vending systems that combine
+              modern hardware, AI-driven analytics, and frictionless checkout.
+              Deploy smarter retail with confidence.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button
                 size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg group"
+                className="bg-slate-700 hover:bg-slate-900 text-white px-8 py-6 text-lg group"
               >
                 Book a Demo
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-gray-300 text-gray-800 hover:bg-gray-100 hover:text-gray-900 px-8 py-6 text-lg"
-              >
-                Request a Quote
-              </Button>
+              <Link href="#contact" >
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-gray-300 w-full text-gray-800 hover:bg-gray-100 hover:text-gray-900 px-8 py-6 text-lg"
+                >
+                  Request a Quote
+                </Button>
+              </Link>
             </div>
           </motion.div>
 

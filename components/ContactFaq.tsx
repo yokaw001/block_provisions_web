@@ -3,15 +3,18 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MessageSquare, Plus, Minus } from "lucide-react";
+import { toast } from "sonner";
+import { Mail, MessageSquare, Plus, Minus, Loader2 } from "lucide-react";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 export function ContactFAQ() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    message: "",
+    user_email: "",
     company: "",
+    message: "",
   });
 
   const faqs = [
@@ -42,9 +45,54 @@ export function ContactFAQ() {
     },
   ];
 
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    // Handle form submission
+  const handleSubmit = async () => {
+    if (!formData.user_email || !formData.message) {
+      toast.error("Missing Information", {
+        description: "Please fill in email and message fields.",
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.user_email)) {
+      toast.error("Invalid Email", {
+        description: "Please enter a valid email address.",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        "service_g1ubb5m",
+        "template_wh30o6r",
+        {
+          user_email: formData.user_email,
+          company: formData.company,
+          message: formData.message,
+          to_email: "rifat28.dev@gmail.com",
+        },
+        "8QCN5ni9Fr-CBDh_n"
+      );
+
+      toast.success("Message Sent!", {
+        description: "We'll get back to you shortly.",
+      });
+
+      setFormData({
+        user_email: "",
+        company: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error("Failed to Send", {
+        description: "Please try again or contact us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const toggleFAQ = (index: number) => {
@@ -52,8 +100,12 @@ export function ContactFAQ() {
   };
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
+    <section id="contact" className="py-24 bg-white relative overflow-hidden">
+      {/* Subtle gradient background - matching analytics style */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-slate-100/40 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-slate-200/40 rounded-full blur-3xl" />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16">
@@ -64,41 +116,39 @@ export function ContactFAQ() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 border border-blue-200 mb-6">
-              <Mail className="w-4 h-4 text-blue-600" />
-              <span className="text-sm text-blue-700 font-medium">Get in Touch</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-6">
+              <Mail className="w-4 h-4 text-slate-600" />
+              <span className="text-sm text-slate-700 font-medium">Get in Touch</span>
             </div>
 
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-6">
               Contact{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Us
-              </span>
+              <span className="text-slate-600">Us</span>
             </h2>
 
-            <p className="text-gray-600 mb-8">
-              Fill out the form below or reach out directly. We're here to
-              answer your questions about hardware, pricing, and operations.
+            <p className="text-xl text-slate-600 mb-8">
+              Fill out the form below or reach out directly. We're here to answer your questions.
             </p>
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Email Address <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="email"
                   placeholder="your@email.com"
-                  value={formData.email}
+                  value={formData.user_email}
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setFormData({ ...formData, user_email: e.target.value })
                   }
-                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400"
+                  className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-slate-500 focus:ring-slate-500 h-10"
+                  required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
                   Company / Location Details
                 </label>
                 <Input
@@ -108,13 +158,13 @@ export function ContactFAQ() {
                   onChange={(e) =>
                     setFormData({ ...formData, company: e.target.value })
                   }
-                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400"
+                  className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-slate-500 focus:ring-slate-500 h-14"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  How can we help?
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  How can we help? <span className="text-red-500">*</span>
                 </label>
                 <Textarea
                   placeholder="Tell us about your vending needs..."
@@ -123,15 +173,24 @@ export function ContactFAQ() {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 resize-none"
+                  className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 resize-none focus:border-slate-500 focus:ring-slate-500 h-32"
+                  required
                 />
               </div>
 
               <Button
                 onClick={handleSubmit}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/30"
+                disabled={isSubmitting}
+                className="w-full bg-slate-700 hover:bg-slate-900 text-white shadow-lg disabled:opacity-50 transition-all h-12"
               >
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  "Send Message"
+                )}
               </Button>
             </div>
           </motion.div>
@@ -143,24 +202,20 @@ export function ContactFAQ() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 border border-purple-200 mb-6">
-              <MessageSquare className="w-4 h-4 text-purple-600" />
-              <span className="text-sm text-purple-700 font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-6">
+              <MessageSquare className="w-4 h-4 text-slate-600" />
+              <span className="text-sm text-slate-700 font-medium">
                 Frequently Asked Questions
               </span>
             </div>
 
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-6">
               Common{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Questions
-              </span>
+              <span className="text-slate-600">Questions</span>
             </h2>
 
-            <p className="text-gray-600 mb-8">
-              Have questions about hardware, pricing, placement requirements, or
-              operations? If you don't see your question here, contact us or
-              book a call.
+            <p className="text-xl text-slate-600 mb-8">
+              Have questions about hardware, pricing, placement or operations?
             </p>
 
             <div className="space-y-4">
@@ -171,19 +226,19 @@ export function ContactFAQ() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-gray-300 hover:shadow-md transition-all"
+                  className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-slate-300 hover:shadow-lg transition-all"
                 >
                   <button
                     onClick={() => toggleFAQ(index)}
                     className="w-full flex items-center justify-between p-6 text-left"
                   >
-                    <span className="text-gray-900 font-semibold pr-4">
+                    <span className="text-slate-800 font-semibold pr-4">
                       {faq.question}
                     </span>
                     {openFAQ === index ? (
-                      <Minus className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                      <Minus className="w-5 h-5 text-slate-600 flex-shrink-0" />
                     ) : (
-                      <Plus className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                      <Plus className="w-5 h-5 text-slate-400 flex-shrink-0" />
                     )}
                   </button>
 
@@ -197,7 +252,7 @@ export function ContactFAQ() {
                     className="overflow-hidden"
                   >
                     <div className="px-6 pb-6">
-                      <p className="text-gray-600 leading-relaxed">
+                      <p className="text-slate-600 leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
