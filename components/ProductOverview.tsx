@@ -28,6 +28,17 @@ export function ProductOverview() {
     };
   }, []);
 
+  // Function to scroll to contact section
+  const scrollToContact = () => {
+    const contactSection = document.querySelector("#contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -58,7 +69,6 @@ export function ProductOverview() {
         "Complete hardware ownership",
         "Self-operated model",
       ],
-      gradient: "from-[#1F3D2B] to-[#274F38]",
     },
     {
       icon: Store,
@@ -70,12 +80,15 @@ export function ProductOverview() {
         "Full-service operations",
         "Revenue sharing model",
       ],
-      gradient: "from-[#1F3D2B] to-[#274F38]",
     },
   ];
 
   return (
-    <section ref={ref} id="solutions" className="py-24 bg-white relative overflow-hidden">
+    <section
+      ref={ref}
+      id="solutions"
+      className="py-24 bg-white relative overflow-hidden"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#3E6B53]/5 via-white to-white" />
 
@@ -125,12 +138,13 @@ export function ProductOverview() {
               variants={itemVariants}
               whileHover={{ scale: 1.02, y: -5 }}
               transition={{ duration: 0.3 }}
-              className="relative group"
+              onClick={scrollToContact}
+              className="relative group h-full cursor-pointer"
             >
               {/* Hover gradient blur */}
               <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-xl from-[#3E6B53]/20 to-[#1F3D2B]/10" />
 
-              <div className="relative bg-white border border-[#3E6B53]/30 rounded-2xl p-8 hover:border-[#1F3D2B]/50 hover:shadow-xl transition-all duration-300">
+              <div className="relative bg-white border border-[#3E6B53]/30 rounded-2xl p-8 hover:border-[#1F3D2B]/50 hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                 {/* Icon */}
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1F3D2B] to-[#274F38] flex items-center justify-center mb-6 shadow-lg">
                   <product.icon className="w-7 h-7 text-white" />
@@ -145,7 +159,7 @@ export function ProductOverview() {
                 </p>
 
                 {/* Features */}
-                <ul className="space-y-3">
+                <ul className="space-y-3 mt-auto">
                   {product.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#3E6B53]" />
