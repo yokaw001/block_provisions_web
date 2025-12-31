@@ -98,7 +98,7 @@ export function Hero() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-[#3E6B53]/60 text-[#1F3D2B] hover:bg-[#3E6B53]/5 hover:text-[#274F38] px-9 py-7 text-lg min-h-14 shadow-sm hover:shadow transition-all duration-300"
+                  className="border-[#3E6B53]/60 text-[#1F3D2B] w-full hover:bg-[#3E6B53]/5 hover:text-[#274F38] px-9 py-7 text-lg min-h-14 shadow-sm hover:shadow transition-all duration-300"
                 >
                   Request a Quote
                 </Button>

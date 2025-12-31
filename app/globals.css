@@ -122,3 +122,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* @font-face {
+  font-family: ProximaNovaRegular;
+  src: url('/font/Fontspring-DEMO-proximanova-regular.otf');
+} */
+
+@font-face {
+  font-family: ProximaNovaRegular;
+  src: url('/public/font/ProximaNova-Regular.woff');
+}
+
+body{
+  font-family: ProximaNovaRegular;
+}
